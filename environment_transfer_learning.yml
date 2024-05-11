@@ -203,4 +203,4 @@ dependencies:
   - zfp=0.5.5=h295c915_6
   - zlib=1.2.13=h5eee18b_0
   - zstd=1.5.2=ha4553b6_0
-prefix: /da/isld/ghisuma1/miniconda3/envs/cm_pheno_v2
+
