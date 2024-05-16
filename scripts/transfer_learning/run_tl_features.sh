@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=64g
-#SBATCH --account=SIADS 696-012
+#SBATCH --account=siads696s24_class
 #SBATCH --mail-user mhuebsch@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --partition=gpu
