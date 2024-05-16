@@ -1,0 +1,37 @@
+name: ms2
+channels:
+  - anaconda
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - calamine
+  - cudatoolkit
+  - imagecodecs
+  - imageio
+  - intel-openmp
+  - joblib
+  - jpeg
+  - jupyterlab
+  - matplotlib
+  - mkl
+  - notebook
+  - numba
+  - numpy
+  - openjpeg
+  - openpyxl
+  - pandas
+  - polars
+  - pytorch
+  - pytorch-mutex
+  - scikit-image 
+  - scikit-learn
+  - seaborn
+  - sqlite
+  - tifffile
+  - torchvision
+  - tornado
+  - tqdm
+  - pip:
+    - polars[arrow,xlsx2csv,fsspec]
+    - polars-lts-cpu
