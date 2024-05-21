@@ -81,7 +81,6 @@ def merge_features(channels_list, out_dir):
     df_merged_all.to_csv('%s/tl_features.csv' % out_dir, index = False)
     
     for channel in channels_list:
-        
         os.remove('%s/tl_features_channel_%s.csv' % (out_dir, channel))
     
     return df_merged_all

@@ -13,9 +13,10 @@ from tl_datasets import tl_dataset
 from tl_utilities import compute_features, get_device, merge_features
 
 parser = argparse.ArgumentParser(description='Arguments TL features generation')
-parser.add_argument('-dev', type=str, required = False, help='Which devide to use? Options are gpu or cpu')
-parser.add_argument('-image_list', type = str, required = True, help='File name for the image list (or path)')
-parser.add_argument('-channels', type = str, required = True, help='List of channels (as names)')
+parser.add_argument('-dev', type=str, required=False, help='Which devide to use? Options are gpu or cpu')
+parser.add_argument('-image_list', type=str, required=True, help='File name for the image list (or path)')
+parser.add_argument('-outdir', type=str, required=False, help='Output directory for the embedding files')
+parser.add_argument('-channels', type=str, required=True, help='List of channels (as names)')
 args = parser.parse_args()
 
 
@@ -43,7 +44,10 @@ def main():
     # Columns of metadata
     meta_cols = [c for c in df_images.columns if not c.startswith('Image')]
     
-    out_dir = '.'
+    if args.otudir is None:
+        out_dir = '.'
+    else:
+        out_dir = args.outdir
     
     for channel in channels_list:
         
@@ -87,6 +91,7 @@ def main():
     
         # Original data frame all data
         df_orig = pd.concat((metadata, channel_data), axis = 1)
+        
         # Add images files columns
         df_orig['ImagesList'] = imgs    
     
@@ -117,7 +122,6 @@ def main():
     df_errors = pd.DataFrame(columns = ['PathToImage', 'Channel', 'ErrorType'])
 
     for channel in channels_list:    
-    
         file_errors_ch = 'df_errors_channel_%s.csv' % channel    
         df_errors_ch = pd.read_csv(file_errors_ch)
         os.remove(file_errors_ch)
