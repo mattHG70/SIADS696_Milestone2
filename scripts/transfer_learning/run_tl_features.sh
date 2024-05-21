@@ -29,8 +29,8 @@ START=`date +%s`; STARTDATE=`date`;
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] Starting the workflow
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] We got the following cores: $CUDA_VISIBLE_DEVICES
 python create_tl_features.py -dev cuda \
-       	-image_list /home/mhuebsch/SIADS696_Milestone2/data/BBBC021_v1_final_test \
-       	-outdir /home/mhuebsch/siads696/data  \
+    -image_list /home/mhuebsch/SIADS696_Milestone2/data/BBBC021_v1_final_test \
+    -outdir /home/mhuebsch/siads696/data  \
 	-channels "DAPI,Tubulin,Actin"
 
 EXITCODE=$?

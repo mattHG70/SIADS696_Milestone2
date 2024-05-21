@@ -54,7 +54,7 @@ def merge_features(channels_list, out_dir):
     # Load the data frame of fetaures per each channel
     for channel in channels_list:
     
-        df_cur = pd.read_csv('%s/tl_features_channel_%s.csv' % (out_dir, channel))
+        df_cur = pd.read_csv(os.path.join(out_dir, f"tl_features_channel_{channel}.csv"))
         df_merged.append(df_cur)
     
     # Get the metadata part - same for all channels
@@ -78,9 +78,9 @@ def merge_features(channels_list, out_dir):
     # Get the final data frame - features + channel
     df_merged_all = pd.concat((df_meta_merged, df_feat_merged), axis = 1)
     
-    df_merged_all.to_csv('%s/tl_features.csv' % out_dir, index = False)
+    df_merged_all.to_csv(os.path.join(out_dir, "tl_features.csv"), index=False)
     
     for channel in channels_list:
-        os.remove('%s/tl_features_channel_%s.csv' % (out_dir, channel))
+        os.remove(os.path.join(out_dir, f"tl_features_channel_{channel}.csv"))
     
     return df_merged_all

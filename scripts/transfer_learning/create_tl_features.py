@@ -50,7 +50,6 @@ def main():
         out_dir = args.outdir
     
     for channel in channels_list:
-        
         print('Computing TL features channel: %s' % channel)
 
         # Initialize data frame of errors epr channel
@@ -112,8 +111,8 @@ def main():
 
         df_embed = df_embed.drop(columns = ['ImagesList'])
         
-        df_embed.to_csv('%s/tl_features_channel_%s.csv' % (out_dir, channel), index = False)
-        df_errors_ch.to_csv('%s/df_errors_channel_%s.csv' % (out_dir, channel), index = False)
+        df_embed.to_csv(os.path.join(out_dir, f"tl_features_channel_{channel}.csv"), index=False)
+        df_errors_ch.to_csv(os.path.join(out_dir, f"df_errors_channel_{channel}.csv"), index = False)
     
     
     df_merged_all = merge_features(channels_list, out_dir)
@@ -121,13 +120,13 @@ def main():
     # Compile errors file
     df_errors = pd.DataFrame(columns = ['PathToImage', 'Channel', 'ErrorType'])
 
-    for channel in channels_list:    
-        file_errors_ch = '%s/df_errors_channel_%s.csv' % (out_dir, channel)    
+    for channel in channels_list:
+        file_errors_ch = os.path.join(out_dir, f"df_errors_channel_{channel}.csv")
         df_errors_ch = pd.read_csv(file_errors_ch)
         os.remove(file_errors_ch)
         df_errors = pd.concat((df_errors, df_errors_ch))
     
-    df_errors.to_csv(os.path.join(outdir, 'Errors_Report.csv'), index = False)
+    df_errors.to_csv(os.path.join(out_dir, 'Errors_Report.csv'), index = False)
     
 
 if __name__=="__main__":
