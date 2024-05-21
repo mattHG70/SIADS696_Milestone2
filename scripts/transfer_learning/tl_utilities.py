@@ -20,8 +20,9 @@ def get_device(device = None):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     
-    print('We are using the device: {}'.format(device))
-    print('GPU Device: ', os.getenv('CUDA_VISIBLE_DEVICES'))
+    print('We are using the device: {}'.format(torch.cuda.device_count()))
+    print('GPU Device: ', torch.cuda.current_device())
+    print('GPU device name: ', torch.cuda.get_device_name(0))
     
     return device
 

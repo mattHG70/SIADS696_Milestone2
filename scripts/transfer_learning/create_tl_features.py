@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 
 import tl_model
 import tl_transform
-from tl_datasets import tl_datasets
+from tl_datasets import tl_dataset
 from tl_utilities import compute_features, get_device, merge_features
 
 parser = argparse.ArgumentParser(description='Arguments TL features generation')
@@ -26,7 +26,6 @@ def main():
     device = get_device(args.dev)
 
     # Initialize the tl_model
-    # TODO: update to allow other choices of tl_model / parameters
     model = tl_model.DenseNet()
     model = model.to(device)
     
@@ -70,13 +69,13 @@ def main():
         
 
         # Create dataset - with files that exist
-        dataset = tl_datasets(imgs_files, transform=transforms.Compose(tra), iterations=1)
+        dataset = tl_dataset(imgs_files, transform=transforms.Compose(tra), iterations=1)
         sampler = torch.utils.data.SequentialSampler(dataset)
  
         dataloader = torch.utils.data.DataLoader(dataset,
                                                  sampler=sampler,
                                                  batch_size=8,
-                                                 num_workers=8,
+                                                 num_workers=1,
                                                  pin_memory=True)
 
 

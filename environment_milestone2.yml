@@ -32,6 +32,7 @@ dependencies:
   - torchvision
   - tornado
   - tqdm
+  - umap-learn
   - pip:
     - polars[arrow,xlsx2csv,fsspec]
     - polars-lts-cpu
