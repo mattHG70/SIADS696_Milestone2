@@ -3,7 +3,7 @@
 #SBATCH --job-name=team10_tl
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=8g
+#SBATCH --mem-per-cpu=4g
 #SBATCH --account=siads696s24_class
 #SBATCH --mail-user mhuebsch@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
@@ -29,9 +29,9 @@ START=`date +%s`; STARTDATE=`date`;
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] Starting the workflow
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] We got the following cores: $CUDA_VISIBLE_DEVICES
 python create_tl_features.py -dev cuda \
--image_list /home/mhuebsch/SIADS696_Milestone2/data/BBBC021_v1_final_test \
--outdir /home/mhuebsch/siads696/data \
--channels "DAPI,Tubulin,Actin"
+       	-image_list /home/mhuebsch/SIADS696_Milestone2/data/BBBC021_v1_final_test \
+       	-outdir /home/mhuebsch/siads696/data  \
+	-channels "DAPI,Tubulin,Actin"
 
 EXITCODE=$?
 # some fancy logging

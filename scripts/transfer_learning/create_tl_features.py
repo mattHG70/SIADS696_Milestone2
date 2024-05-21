@@ -44,7 +44,7 @@ def main():
     # Columns of metadata
     meta_cols = [c for c in df_images.columns if not c.startswith('Image')]
     
-    if args.otudir is None:
+    if args.outdir is None:
         out_dir = '.'
     else:
         out_dir = args.outdir
@@ -122,12 +122,12 @@ def main():
     df_errors = pd.DataFrame(columns = ['PathToImage', 'Channel', 'ErrorType'])
 
     for channel in channels_list:    
-        file_errors_ch = 'df_errors_channel_%s.csv' % channel    
+        file_errors_ch = '%s/df_errors_channel_%s.csv' % (out_dir, channel)    
         df_errors_ch = pd.read_csv(file_errors_ch)
         os.remove(file_errors_ch)
         df_errors = pd.concat((df_errors, df_errors_ch))
     
-    df_errors.to_csv('Errors_Report.csv', index = False)
+    df_errors.to_csv(os.path.join(outdir, 'Errors_Report.csv'), index = False)
     
 
 if __name__=="__main__":
