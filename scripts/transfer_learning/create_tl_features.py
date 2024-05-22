@@ -33,10 +33,9 @@ def main():
     # Define model transformation
     tra = [tl_transform.resize((1024,1024)), transforms.ToTensor(), tl_transform.to_float(), tl_transform.normalize()]
     
-    #channels_list = args.channels
+    # get the channels and the image list file
     channels_list = args.channels.split(",")
-    
-    path_to_csv = '%s.csv' % args.image_list
+    path_to_csv = f"{args.image_list}.csv"
     
     # Read image list data frame
     df_images = pd.read_csv(path_to_csv)
@@ -44,13 +43,15 @@ def main():
     # Columns of metadata
     meta_cols = [c for c in df_images.columns if not c.startswith('Image')]
     
+    # set output directory, choose current dir if parameter is None
     if args.outdir is None:
         out_dir = '.'
     else:
         out_dir = args.outdir
     
+    # process images of each channel
     for channel in channels_list:
-        print('Computing TL features channel: %s' % channel)
+        print(f"Computing TL features channel: {channel}")
 
         # Initialize data frame of errors epr channel
         df_errors_ch = pd.DataFrame(columns = ['PathToImage', 'Channel', 'ErrorType'])
@@ -107,7 +108,7 @@ def main():
         df_embed['ImagesList'] = imgs_files
         
         # Merge and get the non valuable embeddings as NaN
-        df_embed = df_orig.merge(df_embed, on = 'ImagesList', how = 'left')
+        df_embed = df_orig.merge(df_embed, on='ImagesList', how='left')
 
         df_embed = df_embed.drop(columns = ['ImagesList'])
         
@@ -118,7 +119,7 @@ def main():
     df_merged_all = merge_features(channels_list, out_dir)
     
     # Compile errors file
-    df_errors = pd.DataFrame(columns = ['PathToImage', 'Channel', 'ErrorType'])
+    df_errors = pd.DataFrame(columns=['PathToImage', 'Channel', 'ErrorType'])
 
     for channel in channels_list:
         file_errors_ch = os.path.join(out_dir, f"df_errors_channel_{channel}.csv")
@@ -126,7 +127,7 @@ def main():
         os.remove(file_errors_ch)
         df_errors = pd.concat((df_errors, df_errors_ch))
     
-    df_errors.to_csv(os.path.join(out_dir, 'Errors_Report.csv'), index = False)
+    df_errors.to_csv(os.path.join(out_dir, 'Errors_Report.csv'), index=False)
     
 
 if __name__=="__main__":
