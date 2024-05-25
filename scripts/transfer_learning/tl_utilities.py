@@ -58,10 +58,10 @@ def merge_features(channels_list, out_dir):
         df_merged.append(df_cur)
     
     # Get the metadata part - same for all channels
-    df_meta_merged = df_merged[0].iloc[:,0:11]
+    df_meta_merged = df_merged[0].iloc[:,0:10]
     for i in range(len(channels_list)):
         # Metadata per channel
-        df_meta_ch = df_merged[i].iloc[:,11:13]
+        df_meta_ch = df_merged[i].iloc[:,10:12]
         # Concatenate the metadata per channel
         df_meta_merged = pd.concat((df_meta_merged, df_meta_ch), axis = 1)
     
@@ -69,7 +69,7 @@ def merge_features(channels_list, out_dir):
     df_feat_merged = []
     for i in range(len(channels_list)):
         # Features per channel
-        df_feat_ch = df_merged[i].iloc[:,13:]
+        df_feat_ch = df_merged[i].iloc[:,12:]
         df_feat_merged.append(df_feat_ch)
     
     # Concatenate the features across channels
