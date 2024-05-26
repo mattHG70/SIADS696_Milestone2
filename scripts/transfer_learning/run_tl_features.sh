@@ -1,4 +1,6 @@
 #!/bin/bash
+# Slurm script to run the transfer learning job.
+# Uses one node + one gpu
 # Slurm PARAMETERS
 #SBATCH --job-name=team10_tl
 #SBATCH --nodes=1
@@ -18,10 +20,12 @@
 
 # run bashrc
 source /home/mhuebsch/.bashrc
+# switch to directory containing all scripts
 cd /home/mhuebsch/SIADS696_Milestone2/scripts/transfer_learning
 # load a python+conda module if necessary
 # module load <ptyhon module>
 module load cuda cudnn
+# activate custom conda environment
 conda activate ms2
 
 # some fancy logging
