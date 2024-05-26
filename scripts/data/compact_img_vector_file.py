@@ -32,8 +32,7 @@ def main():
                             "Image_PathName_Actin",
                             "Metadata_Plate_DAPI",
                             "Metadata_Well_DAPI",
-                            )
-                            
+                            )   
     )
 
     out.write_csv(args.outfile)
