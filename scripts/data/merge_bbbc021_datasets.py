@@ -1,14 +1,27 @@
+"""
+This script merges all 3 CSV files of the BBBC021 dataset into a final dataset
+to be used in the Milestone 2 project. After the merge column names are changed
+to separate between metadata and image files. In addition the columns are
+reorderd: first metadata than image files. This will enable direct input to
+the transfer learning step.
+"""
 import os
 import re
 import argparse
 
 import pandas as pd
 
-parser = argparse.ArgumentParser(description="Download CSV file for BBBC021_v1 dataset")
+"""
+Command line parameters:
+- -outfile: full path of the final CSV file.
+- -datadir: directoy in which the 3 separate downloaded CSV file reside.
+"""
+parser = argparse.ArgumentParser(description="Merge the CSV files of dataset BBBC021")
 parser.add_argument('-outfile', type=str, required=True, help="Output merged datasets to file")
 parser.add_argument('-datadir', type=str, required=True, help="Data directory for BBBC021 csv files")
 args = parser.parse_args()
 
+# dictionary holding the filenames
 data_files = {
     "image": "BBBC021_v1_image.csv",
     "compound": "BBBC021_v1_compound.csv",
@@ -17,6 +30,11 @@ data_files = {
 
 
 def main():
+    """
+    Main function of the script.
+    Takes all 3 CSV files and merges them to one final CSV file. Changes
+    column names and reorder columns to fit to the transfer learning script.
+    """
     # load all csv files into dataframes
     df_images = pd.read_csv(os.path.join(args.datadir, data_files["image"]))
     df_compound = pd.read_csv(os.path.join(args.datadir, data_files["compound"]))
@@ -63,6 +81,7 @@ def main():
     
     # write final dataset
     df_bbbc021.to_csv(os.path.join(args.datadir, args.outfile), index=False)
-    
+
+
 if __name__=="__main__":
     main()

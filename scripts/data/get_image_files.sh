@@ -1,3 +1,6 @@
+#!/bin/bash
+# bash script to download all archives for dataset BBBC021
+# unzip all archives and delete the zip files afterwards
 wget https://data.broadinstitute.org/bbbc/BBBC021/BBBC021_v1_images_Week1_22123.zip
 unzip -q BBBC021_v1_images_Week1_22123.zip
 rm BBBC021_v1_images_Week1_22123.zip
