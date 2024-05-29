@@ -164,3 +164,4 @@ scripts/get_data
 scripts/transfer_learning/*.csv
 data/*test.csv
 data/*.zip
+notebooks/milestone2_batchcorrect*.ipynb
