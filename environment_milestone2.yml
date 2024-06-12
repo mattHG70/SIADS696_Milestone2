@@ -5,7 +5,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - calamine
   - cudatoolkit
   - imagecodecs
   - imageio
@@ -21,7 +20,9 @@ dependencies:
   - openjpeg
   - openpyxl
   - pandas
+  - pip
   - polars
+  - python-calamine
   - pytorch
   - pytorch-mutex
   - scikit-image 
