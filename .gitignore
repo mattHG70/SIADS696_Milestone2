@@ -166,3 +166,8 @@ data/*test.csv
 data/*.zip
 data/*.parquet
 notebooks/milestone2_batchcorrect*.ipynb
+notebooks/milestone2_ann_supervised*
+notebooks/milestone2_ann_compound*
+notebooks/cv_results*
+notebooks/ms2_nn.*
+models/*
