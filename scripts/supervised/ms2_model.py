@@ -24,11 +24,9 @@ class Net3072(nn.Module):
             nn.Linear(3072, 1024),
             nn.ReLU(),
             nn.Dropout(0.5),
-            # nn.BatchNorm1d(1024),
             nn.Linear(1024, 1024),
             nn.ReLU(),
             nn.Dropout(0.5),
-            # nn.BatchNorm1d(1024),
             nn.Linear(1024, n_classes),
         )
 
