@@ -1,6 +1,6 @@
 """
-This Python class implements the PyTorch Dataset. This Dataset is then
-used in with a PyTroch Dataloader to load batches of images during
+This Python class implements the PyTorch Dataset. This Dataset is
+used with a PyTroch Dataloader to load batches of images during
 model trainging and evalutation.
 """
 from torch.utils.data import Dataset
