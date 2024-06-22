@@ -18,7 +18,7 @@ Our proposal is to predict MoA based on these microscopy images taken after expo
 |notebooks|Contains Jupyter notebooks covering data exploration, unsupervised clustering and dimensionality reduction and supervised model building|
 |scripts|Contains Python and Shell scripts used to download the dataset (CSV and image files), do the transfer learing and the crossvalidation of the neural network|  
 
-We used image set BBBC021v1 [Caie et al., Molecular Cancer Therapeutics, 2010], available from the Broad Bioimage Benchmark Collection [Ljosa et al., Nature Methods, 2012].
+We used image set [BBBC021v1](https://bbbc.broadinstitute.org/bbbc/BBBC021) [[Caie et al., Molecular Cancer Therapeutics, 2010](http://dx.doi.org/10.1158/1535-7163.MCT-09-1148)], available from the Broad Bioimage Benchmark Collection [[Ljosa et al., *Nature Methods*, 2012](http://dx.doi.org/10.1038/nmeth.2083)].
 
 
 [^1]: Janssens, Rens, et al. "Fully unsupervised deep mode of action learning for phenotyping 
