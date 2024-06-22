@@ -1,12 +1,17 @@
+"""
+Python class implementing the pre-trained model used in the 
+transfer learning process.
+"""
 import torch.nn as nn
 from torchvision.models import densenet121, DenseNet121_Weights
 
 class DenseNet(nn.Module):
-    """
-    Python class defining the model used for the transfer learning task.
-    Pre-trained model used: DenseNet121 
-    """
+
     def __init__(self, fixed_extractor=True):
+        """
+        Initialize the PyTroch model.
+        Pre-trained model: DenseNet121
+        """
         super(DenseNet, self).__init__()
         
         # Load pretrained original densenet
@@ -27,6 +32,9 @@ class DenseNet(nn.Module):
         
 
     def forward(self, x):
+        """
+        Forward path calcualtion.
+        """
         x = self.features(x)
         x = x.view(x.size(0), -1)
         return x

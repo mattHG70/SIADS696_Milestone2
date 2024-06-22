@@ -1,4 +1,7 @@
-# Script to create the TL features 
+"""
+Main Python script used to generate the image embedding vectors
+using transfer learning.
+"""
 import argparse
 import os
 import pandas as pd
@@ -12,7 +15,8 @@ import tl_transform
 from tl_datasets import tl_dataset
 from tl_utilities import compute_features, get_device, merge_features
 
-parser = argparse.ArgumentParser(description='Arguments TL features generation')
+# Parse command line arguments passed to the script.
+parser = argparse.ArgumentParser(description='Arguments of the TL features generation')
 parser.add_argument('-dev', type=str, required=False, help='Which devide to use? Options are gpu or cpu')
 parser.add_argument('-image_list', type=str, required=True, help='File name for the image list (or path)')
 parser.add_argument('-outdir', type=str, required=False, help='Output directory for the embedding files')
@@ -20,9 +24,11 @@ parser.add_argument('-channels', type=str, required=True, help='List of channels
 args = parser.parse_args()
 
 
-# Main function
 def main():
-    
+    """
+    Main function defining the transfer learning process. Command liine arguments are
+    user for customization of the process.
+    """
     # Get device - use GPU if available
     device = get_device(args.dev)
 
@@ -33,7 +39,7 @@ def main():
     # Define model transformation
     tra = [tl_transform.resize((1024,1024)), transforms.ToTensor(), tl_transform.to_float(), tl_transform.normalize()]
     
-    # get the channels and the image list file
+    # Get the channels and the image list file
     channels_list = args.channels.split(",")
     path_to_csv = f"{args.image_list}.csv"
     
@@ -43,13 +49,13 @@ def main():
     # Columns of metadata
     meta_cols = [c for c in df_images.columns if not c.startswith('Image')]
     
-    # set output directory, choose current dir if parameter is None
+    # Set output directory, choose current dir if parameter is None
     if args.outdir is None:
         out_dir = '.'
     else:
         out_dir = args.outdir
     
-    # process images of each channel
+    # Process the images of each channel
     for channel in channels_list:
         print(f"Computing TL features channel: {channel}")
 
@@ -68,7 +74,7 @@ def main():
         df_errors_ch['Channel'] = [channel for _ in range(len(imgs_errors))]
         df_errors_ch['ErrorType'] = ['FileNotFound' for _ in range(len(imgs_errors))]
         
-        # images which are files - not currupted
+        # Images which are files - not currupted
         imgs_files = [img for img in imgs if os.path.isfile(img)]
         
 
@@ -95,10 +101,10 @@ def main():
         # Add images files columns
         df_orig['ImagesList'] = imgs    
     
-        # get the features for the whole dataset
+        # Get the features for the whole dataset
         features = compute_features(dataloader, model, device)
         
-        # creates embeddings
+        # Creates embeddings
         embeds = [pd.Series(features[:, i], name='Z{:03d}_{}'.format(i, channel)) for i in range(features.shape[1])]
         embeds = pd.concat(embeds, axis=1)
         
@@ -112,15 +118,17 @@ def main():
 
         df_embed = df_embed.drop(columns = ['ImagesList'])
         
+        # write embedding vectors and errors per channel
         df_embed.to_csv(os.path.join(out_dir, f"tl_features_channel_{channel}.csv"), index=False)
         df_errors_ch.to_csv(os.path.join(out_dir, f"df_errors_channel_{channel}.csv"), index = False)
     
-    
+    # merge embedding vectors and write embedding vector dataset
     df_merged_all = merge_features(channels_list, out_dir)
     
     # Compile errors file
     df_errors = pd.DataFrame(columns=['PathToImage', 'Channel', 'ErrorType'])
 
+    # Generate error report
     for channel in channels_list:
         file_errors_ch = os.path.join(out_dir, f"df_errors_channel_{channel}.csv")
         df_errors_ch = pd.read_csv(file_errors_ch)
@@ -131,5 +139,8 @@ def main():
     
 
 if __name__=="__main__":
+    """
+    Call the main function.
+    """
     main()
     

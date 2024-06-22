@@ -18,6 +18,9 @@
 #SBATCH --output=/home/%u/siads696/%x-%j.log
 #SBATCH --error=/home/%u/siads696/error-%x-%j.log
 
+# run image embedding creation as a cluster job on Great Lakes HPC
+# using 1 node and 1 gpu
+
 # run bashrc
 source /home/mhuebsch/.bashrc
 # switch to directory containing all scripts
@@ -28,17 +31,18 @@ module load cuda cudnn
 # activate custom conda environment
 conda activate ms2
 
-# some fancy logging
 START=`date +%s`; STARTDATE=`date`;
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] Starting the workflow
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] We got the following cores: $CUDA_VISIBLE_DEVICES
+
+# set device to "cuda" to enable gpu usage
 python create_tl_features.py -dev cuda \
 	-image_list /home/mhuebsch/SIADS696_Milestone2/data/BBBC021_v1_final \
 	-outdir /home/mhuebsch/siads696/data  \
 	-channels "DAPI,Tubulin,Actin"
 
 EXITCODE=$?
-# some fancy logging
+
 END=`date +%s`; ENDDATE=`date`
 echo [INFO] [$END] [$ENDDATE] [$$] [$JOB_ID] Workflow finished with code $EXITCODE
 echo [INFO] [$END] [`date`] [$$] [$JOB_ID] Workflow execution time \(seconds\) : $(( $END-$START ))

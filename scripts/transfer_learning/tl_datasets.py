@@ -1,5 +1,9 @@
+"""
+This Python class implements the PyTorch Dataset. This Dataset is then
+used in with a PyTroch Dataloader to load batches of images during
+model trainging and evalutation.
+"""
 from torch.utils.data import Dataset
-import pandas as pd
 import numpy as np
 from PIL import Image
 
@@ -8,22 +12,30 @@ class tl_dataset(Dataset):
     def __init__(self, imgs, transform=None, iterations=1):
         
         """
-        Args:
-            csv_file (string): Path to the csv file with annotations.
-            channel: name of channel to use
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
+        Initialization of the tl_dataset class.
+        Params:
+            imgs (list): list of image paths.
+            transform (callable): optional transformations to be applied on a sample.
         """
         
         super(tl_dataset, self).__init__()
         
+        # set transformations
         self.transform = transform
         
-        # Create list of images - path to images
+        # Create list of images (path)
         self.imgs = imgs
 
             
     def __getitem__(self, index):
+        """
+        This function is called by the Dataloader to get images (items) from
+        the dataset. The greyscale image gets transformed into a RGB image to match
+        the type of images the original model was trained on. Transformations are 
+        then applied to the image.
+        Params:
+            index (int) = index of the image in the list.
+        """
         img_name = self.imgs[index]
 
         img = np.asarray(Image.open(img_name))
@@ -36,4 +48,7 @@ class tl_dataset(Dataset):
         return image
 
     def __len__(self):
+        """
+        Get the length of the dataset.
+        """
         return len(self.imgs)
