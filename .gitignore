@@ -163,6 +163,7 @@ cython_debug/
 scripts/get_data
 scripts/transfer_learning/*.csv
 scripts/supervised/crossval_job_2.sh
+scripts/supervised/ms2_crossval_script_2.py
 data/*test.csv
 data/*.zip
 data/*.parquet
