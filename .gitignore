@@ -162,6 +162,7 @@ cython_debug/
 # siads696 porject specific
 scripts/get_data
 scripts/transfer_learning/*.csv
+scripts/supervised/crossval_job_2.sh
 data/*test.csv
 data/*.zip
 data/*.parquet

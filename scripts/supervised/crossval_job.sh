@@ -28,7 +28,10 @@ conda activate ms2
 START=`date +%s`; STARTDATE=`date`;
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] Starting the workflow
 echo [INFO] [$START] [$STARTDATE] [$$] [$JOB_ID] We got the following cores: $CUDA_VISIBLE_DEVICES
-python ms2_crossval_script.py -infile $DATA_DIR/full_train_moa.parquet -outfile $DATA_DIR/nn_Net3072_cv_results_02.parquet
+
+# process the cross validation in chunk due to the long run time. Full run time might exceed the limits
+# of Great Lakes HPC
+python ms2_crossval_script.py -infile $DATA_DIR/full_train_moa.parquet -outfile $DATA_DIR/nn_Net3072_cv_results_01.parquet
 
 EXITCODE=$?
 # some fancy logging
