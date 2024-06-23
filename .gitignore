@@ -167,7 +167,8 @@ scripts/supervised/ms2_crossval_script_2.py
 data/*test.csv
 data/*.zip
 data/*.parquet
-notebooks/milestone2_batchcorrect*.ipynb
+notebooks/milestone2_batchcorrect*
+notebooks/milestone2_compact_ds*
 notebooks/milestone2_ann_supervised*
 notebooks/milestone2_ann_compound*
 notebooks/cv_results*
