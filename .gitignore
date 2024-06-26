@@ -172,5 +172,4 @@ notebooks/milestone2_compact_ds*
 notebooks/milestone2_ann_supervised*
 notebooks/milestone2_ann_compound*
 notebooks/cv_results*
-notebooks/ms2_nn.*
-models/*
+models/kc_*
